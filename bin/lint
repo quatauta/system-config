@@ -1,0 +1,5 @@
+#!/bin/sh
+
+yamllint .
+ansible-lint
+ansible-playbook --syntax-check "$(git rev-parse --show-toplevel 2>/dev/null || echo ".")/site.yml"
