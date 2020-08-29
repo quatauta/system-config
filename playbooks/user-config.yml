@@ -1,4 +1,1 @@
 ---
-- hosts: all
-  roles:
-    - viasite-ansible.zsh
