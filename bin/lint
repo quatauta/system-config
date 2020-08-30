@@ -1,5 +1,10 @@
 #!/bin/sh
 
+echo "yamllint: "
 yamllint .
+
+echo "ansible-lint: "
 ansible-lint
+
+echo "ansible-playbook syntax check: "
 ansible-playbook --syntax-check "$(git rev-parse --show-toplevel 2>/dev/null || echo ".")/site.yml"

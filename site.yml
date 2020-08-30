@@ -1,4 +1,4 @@
 #!/usr/bin/env ansible-playbook
 ---
-
-- import_playbook: playbooks/playbook.yml
+- import_playbook: ./playbooks/system-config.yml
+- import_playbook: ./playbooks/user-config.yml
