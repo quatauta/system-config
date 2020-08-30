@@ -513,13 +513,47 @@
       ini_file:
         state: present
         path: /etc/systemd/journald.conf
+        mode: 0644
         section: Journal
         option: SystemMaxUse
         value: 50M
+        no_extra_spaces: yes
       notify: restart systemd journald
+
+    - name: grub timeout 1s
+      ini_file:
+        path: /etc/default/grub
+        mode: 0644
+        section: ''
+        option: GRUB_TIMEOUT
+        value: '1'
+        no_extra_spaces: yes
+
+    - name: grub load /etc/default/grub.d/*.cfg
+      blockinfile:
+        path: /etc/default/grub
+        mode: 0644
+        block: |
+          for INCL in /etc/default/grub.d/*.cfg ; do
+              source "${INCL}"
+          done
+      notify: grub-mkconfig
+
+    - name: grub enable apparmor
+      ini_file:
+        path: /etc/default/grub.d/apparmor.cfg
+        mode: 0644
+        section: ''
+        option: GRUB_CMDLINE_LINUX_DEFAULT
+        value: '"${GRUB_CMDLINE_LINUX_DEFAULT} apparmor=1 lsm=lockdown,yama,apparmor"'
+        no_extra_spaces: yes
+      notify: grub-mkconfig
 
   handlers:
     - name: restart systemd journald
       service:
         name: systemd-journald
         state: restarted
+
+    - name: grub-mkconfig
+      command: grub-mkconfig -o /boot/grub/grub.cfg
