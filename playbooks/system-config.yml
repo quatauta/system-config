@@ -316,7 +316,6 @@
           - bubblewrap
           - diffstat
           - diffutils
-          - dmenu
           - docker
           - docker-compose
           - elixir
@@ -391,7 +390,6 @@
           - rubygems
           - ruby-rake
           - signal-desktop
-          - signify-mail
           - tidy
           - urlscan
           - v4l-utils
@@ -416,16 +414,16 @@
           - texlive-bin
           - texlive-core
           - texlive-fontsextra
-          - texlive-formatsextra
-          - texlive-games
+          # texlive-formatsextra
+          # texlive-games
           - texlive-humanities
           - texlive-langextra
           - texlive-latexextra
-          - texlive-music
-          - texlive-pictures
-          - texlive-pstricks
-          - texlive-publishers
-          - texlive-science
+          # texlive-music
+          # texlive-pictures
+          # texlive-pstricks
+          # texlive-publishers
+          # texlive-science
 
 # pikaur packages:
 #
@@ -498,4 +496,5 @@
 # own packages:
 # pam_mktemp
 # systemrescuecd
+# signify-mail
 # exercism-cli

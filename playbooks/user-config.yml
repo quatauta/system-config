@@ -1,12 +1,15 @@
 #!/usr/bin/env ansible-playbook
 ---
 - hosts: local
+  name: User Configuration
   tasks:
   - name: Group for user account daniel
+    become: true
     group:
       name: daniel
       state: present
       system: no
+
   - name: User account daniel
     become: true
     user:
