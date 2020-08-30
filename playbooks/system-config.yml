@@ -1,7 +1,10 @@
 ---
 - hosts: local
-  name: System Configuration
+  name: Packages
   become: true
+  tags:
+    - system
+    - package
   tasks:
     - name: System packages
       package:
@@ -183,6 +186,7 @@
           - adobe-source-code-pro-fonts
           - adobe-source-sans-pro-fonts
           - adobe-source-serif-pro-fonts
+          - awesome-terminal-fonts
           - deepin-community-wallpapers
           - deepin-wallpapers
           - deepin-wallpapers-plasma
@@ -310,7 +314,6 @@
           - asciidoctor
           - asciinema
           - atool
-          - awesome-terminal-fonts
           - bat
           - bmon
           - bubblewrap
@@ -498,3 +501,25 @@
 # systemrescuecd
 # signify-mail
 # exercism-cli
+
+- hosts: local
+  name: System Configuration
+  become: true
+  tags:
+    - system
+    - config
+  tasks:
+    - name: systemd journal max usage
+      ini_file:
+        state: present
+        path: /etc/systemd/journald.conf
+        section: Journal
+        option: SystemMaxUse
+        value: 50M
+      notify: restart systemd journald
+
+  handlers:
+    - name: restart systemd journald
+      service:
+        name: systemd-journald
+        state: restarted
