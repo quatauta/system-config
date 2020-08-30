@@ -1,43 +1,28 @@
 ---
 - hosts: local
+  name: System Configuration
+  become: true
   tasks:
-    - name: Packages installed
-      become: true
+    - name: System packages
       package:
         state: present
         name:
           - acl
           - acpi
-          - adobe-source-code-pro-fonts
-          - adobe-source-sans-pro-fonts
-          - adobe-source-serif-pro-fonts
           - alsa-utils
-          - android-tools
-          - anki
-          - ansible
-          - ansible-lint
           - apparmor
           - archlinux-keyring
-          - aria2
-          - asciidoctor
-          - asciinema
-          - atool
           - atop
           - attr
           - audit
-          - awesome-terminal-fonts
           - base
           - bash
           - bash-completion
-          - bat
           - bc
-          - biber
           - bind
-          - bmon
           - bolt
           - bridge-utils
           - btrfs-progs
-          - bubblewrap
           - bzip2
           - ca-certificates
           - ca-certificates-mozilla
@@ -50,20 +35,10 @@
           - curl
           - dconf-editor
           - ddrescue
-          - deepin-community-wallpapers
-          - deepin-wallpapers
-          - deepin-wallpapers-plasma
-          - desktop-file-utils
           - dhclient
           - dhcpcd
-          - diffstat
-          - diffutils
-          - djvulibre
-          - dmenu
           - dmraid
           - dnssec-anchors
-          - docker
-          - docker-compose
           - dosfstools
           - dstat
           - duperemove
@@ -71,31 +46,149 @@
           - efibootmgr
           - efivar
           - elfutils
-          - elixir
-          - emacs
           - etckeeper
           - ethtool
-          - evince
-          - exa
-          - exiv2
           - fakeroot
-          - feh
           - file
-          - file-roller
           - filesystem
           - findutils
-          - firefox
           - gawk
-          - gcolor2
-          - gdm
-          - geeqie
           - geoclue
           - geoip
           - geoip-database
-          - ghostscript
-          - gimp
-          - git
-          - gitlab-runner
+          - gnu-netcat
+          - gpm
+          - gptfdisk
+          - grep
+          - grub
+          - gzip
+          - haveged
+          - hddtemp
+          - hdparm
+          - htop
+          - hwids
+          - hwloc
+          - iana-etc
+          - inetutils
+          - inotify-tools
+          - iotop
+          - iproute2
+          - iptables
+          - iputils
+          - ipw2100-fw
+          - ipw2200-fw
+          - iw
+          - iwd
+          - jemalloc
+          - kbd
+          - keyutils
+          - kmod
+          - less
+          - linux
+          - linux-firmware
+          - logrotate
+          - lsb-release
+          - lshw
+          - lsof
+          - lvm2
+          - man-db
+          - man-pages
+          - mkinitcpio
+          - mkinitcpio-busybox
+          - mlocate
+          - mosh
+          - mtools
+          - mtr
+          - namcap
+          - nano
+          - netctl
+          - net-tools
+          - networkmanager
+          - network-manager-applet
+          - nginx-mainline
+          - ntfs-3g
+          - openssh
+          - openssl
+          - os-prober
+          - pacman
+          - pacman-contrib
+          - pacman-mirrorlist
+          - pam
+          - pambase
+          - parallel
+          - parted
+          - patch
+          - pciutils
+          - pinentry
+          - powertop
+          - procps-ng
+          - psmisc
+          - pv
+          - pwgen
+          - recode
+          - reflector
+          - reiserfsprogs
+          - rhash
+          - rsync
+          - run-parts
+          - screen
+          - sed
+          - shadow
+          - smbclient
+          - snapper
+          - sqlite
+          - squashfs-tools
+          - strace
+          - sudo
+          - sysfsutils
+          - sysstat
+          - systemd
+          - systemd-resolvconf
+          - tar
+          - texinfo
+          - time
+          - tlp
+          - tlp-rdw
+          - tmux
+          - tmuxp
+          - traceroute
+          - tree
+          - tzdata
+          - udisks2
+          - unace
+          - unrar
+          - unzip
+          - upower
+          - usbmuxd
+          - usbutils
+          - util-linux
+          - wget
+          - which
+          - wireguard-tools
+          - wireless-regdb
+          - wireless_tools
+          - xfsprogs
+          - xxhash
+          - xz
+          - zenity
+          - zip
+          - zsh
+          - zsh-completions
+          - zstd
+
+    - name: GUI packages
+      package:
+        state: present
+        name:
+          - adobe-source-code-pro-fonts
+          - adobe-source-sans-pro-fonts
+          - adobe-source-serif-pro-fonts
+          - deepin-community-wallpapers
+          - deepin-wallpapers
+          - deepin-wallpapers-plasma
+          - desktop-file-utils
+          - djvulibre
+          - gdm
           - gnome-autoar
           - gnome-backgrounds
           - gnome-bluetooth
@@ -108,200 +201,24 @@
           - gnome-shell-extensions
           - gnome-themes-extra
           - gnome-tweaks
-          - gnu-netcat
-          - gnupg
-          - gpgme
-          - gpm
-          - gptfdisk
-          - gramps
-          - grc
-          - grep
-          - grim
-          - grub
-          - gucharmap
           - gvfs
           - gvfs-afc
           - gvfs-gphoto2
           - gvfs-mtp
           - gvfs-smb
-          - gvim
-          - gzip
-          - haveged
-          - hddtemp
-          - hdparm
-          - hspell
-          - htop
-          - hunspell
-          - hunspell-de
-          - hunspell-en_GB
-          - hunspell-en_US
-          - hwids
-          - hwloc
-          - hyphen
-          - hyphen-de
-          - hyphen-en
-          - iana-etc
-          - id3v2
-          - inetutils
-          - inotify-tools
-          - iotop
-          - iproute2
-          - iptables
-          - iputils
-          - ipw2100-fw
-          - ipw2200-fw
-          - iw
-          - iwd
-          - jemalloc
-          - jpegoptim
-          - kbd
-          - keyutils
-          - kmod
-          - lcms2
-          - ldb
-          - ldns
-          - lensfun
-          - less
-          - lib
-          - liferea
-          - light
           - lightdm
           - lightdm-gtk-greeter
           - light-locker
-          - linux
-          - linux-firmware
-          - lmdb
-          - logrotate
-          - lrzip
-          - lsb-release
-          - lshw B.02.19.2-1
-          - lsof
-          - lvm2
-          - lxmenu-data
-          - lxterminal
-          - lynx
-          - mailcap
-          - make
-          - mako
-          - man-db
-          - man-pages
-          - mediainfo
-          - meld
-          - mkinitcpio
-          - mkinitcpio-busybox
-          - mlocate
-          - mosh
-          - mpg123
-          - mpv
-          - msmtp
-          - mtools
-          - mtr
-          - namcap
-          - nano
-          - ncdu
-          - neomutt
-          - netctl
-          - net-tools
-          - networkmanager
-          - network-manager-applet
-          - nginx-mainline
-          - nmap
-          - nm-connection-editor
-          - nmon
-          - notmuch
-          - notmuch-mutt
-          - noto-fonts
-          - ntfs-3g
-          - numlockx
-          - offlineimap
-          - openssh
-          - openssl
-          - opera
-          - os-prober
           - otf-fira-sans
-          - pacman
-          - pacman-contrib
-          - pacman-mirrorlist
-          - pam
-          - pambase
-          - paperkey
-          - parallel
-          - parted
-          - patch
-          - pciutils
-          - pcmanfm
-          - pinentry
           - plasma-workspace-wallpapers
           - powerline
           - powerline-common
           - powerline-fonts
-          - powertop
-          - procps-ng
-          - psmisc
-          - pv
-          - pwgen
-          - qalculate-gtk
-          - qrencode
-          - quodlibet
-          - radicale
-          - rdesktop
-          - recode
-          - reflector
-          - reiserfsprogs
-          - rhash
-          - ripgrep
-          - rofi
-          - rsnapshot
-          - rsync
-          - ruby
-          - ruby-bundler
-          - rubygems
-          - ruby-rake
-          - run-parts
-          - screen
-          - sed
-          - shadow
-          - signal-desktop
-          - signify-mail
-          - smbclient
-          - snapper
-          - sqlite
-          - squashfs-tools
           - startup-notification
-          - strace
-          - sudo
           - sway
           - swaybg
           - swayidle
           - swaylock
-          - sysfsutils
-          - sysstat
-          - systemd
-          - systemd-resolvconf
-          - tar
-          - texinfo
-          - texlive-bibtexextra
-          - texlive-bin
-          - texlive-core
-          - texlive-fontsextra
-          - texlive-formatsextra
-          - texlive-games
-          - texlive-humanities
-          - texlive-langextra
-          - texlive-latexextra
-          - texlive-music
-          - texlive-pictures
-          - texlive-pstricks
-          - texlive-publishers
-          - texlive-science
-          - tidy
-          - time
-          - tlp
-          - tlp-rdw
-          - tmux
-          - tmuxp
-          - traceroute
-          - tree
           - ttf-croscore
           - ttf-dejavu
           - ttf-fira-code
@@ -312,40 +229,12 @@
           - ttf-liberation
           - ttf-roboto
           - ttf-roboto-mono
-          - tzdata
-          - uchardet
-          - udisks2
-          - unace
           - unclutter
-          - unrar
-          - unzip
-          - upower
-          - urlscan
-          - usbmuxd
-          - usbutils
-          - util-linux
-          - v4l-utils
-          - vdirsyncer
-          - vim-ansible
-          - vim-fugitive
-          - virtualbox
-          - virtualbox-guest-iso
-          - virtualbox-host-modules-arch
-          - vorbisgain
-          - vorbis-tools
-          - w3m
-          - wavpack
           - waybar
-          - wget
-          - which
-          - wireguard-tools
-          - wireless-regdb
-          - wireless_tools
           - wlroots
           - wmctrl
           - x86_energy_perf_policy
           - xapps
-          - xca
           - xcape
           - xcb-proto
           - xcb-util
@@ -361,9 +250,7 @@
           - xdg-utils
           - xf86-input-evdev
           - xf86-input-libinput
-          - xfsprogs
           - xkeyboard-config
-          - xmlsec
           - xorg-fonts-alias-misc
           - xorg-fonts-encodings
           - xorg-fonts-misc
@@ -409,16 +296,136 @@
           - xorg-xwininfo
           - xorg-xwud
           - xterm
-          - xxhash
-          - xz
+          - zbar
+
+    - name: Application packages
+      package:
+        state: present
+        name:
+          - android-tools
+          - anki
+          - ansible
+          - ansible-lint
+          - aria2
+          - asciidoctor
+          - asciinema
+          - atool
+          - awesome-terminal-fonts
+          - bat
+          - bmon
+          - bubblewrap
+          - diffstat
+          - diffutils
+          - dmenu
+          - docker
+          - docker-compose
+          - elixir
+          - emacs
+          - evince
+          - exa
+          - exiv2
+          - feh
+          - file-roller
+          - firefox
+          - gcolor2
+          - geeqie
+          - ghostscript
+          - gimp
+          - git
+          - gitlab-runner
+          - gnupg
+          - gpgme
+          - gramps
+          - grc
+          - grim
+          - gucharmap
+          - gvim
+          - hspell
+          - hunspell
+          - hunspell-de
+          - hunspell-en_GB
+          - hunspell-en_US
+          - hyphen
+          - hyphen-de
+          - hyphen-en
+          - id3v2
+          - jpegoptim
+          - ldb
+          - lensfun
+          - liferea
+          - light
+          - lmdb
+          - lrzip
+          - lxmenu-data
+          - lxterminal
+          - mailcap
+          - mako
+          - mediainfo
+          - meld
+          - mpg123
+          - mpv
+          - msmtp
+          - ncdu
+          - neomutt
+          - nmap
+          - nm-connection-editor
+          - nmon
+          - notmuch
+          - notmuch-mutt
+          - noto-fonts
+          - numlockx
+          - offlineimap
+          - opera
+          - paperkey
+          - pcmanfm
+          - qalculate-gtk
+          - qrencode
+          - quodlibet
+          - radicale
+          - rdesktop
+          - ripgrep
+          - rofi
+          - rsnapshot
+          - ruby
+          - ruby-bundler
+          - rubygems
+          - ruby-rake
+          - signal-desktop
+          - signify-mail
+          - tidy
+          - urlscan
+          - v4l-utils
+          - vdirsyncer
+          - vim-ansible
+          - vim-fugitive
+          - virtualbox
+          - virtualbox-guest-iso
+          - virtualbox-host-modules-arch
+          - vorbisgain
+          - vorbis-tools
+          - xca
           - yamllint
           - youtube-dl
-          - zbar
-          - zenity
-          - zip
-          - zsh
-          - zsh-completions
-          - zstd
+
+    - name: LaTeX packages
+      package:
+        state: present
+        name:
+          - biber
+          - texlive-bibtexextra
+          - texlive-bin
+          - texlive-core
+          - texlive-fontsextra
+          - texlive-formatsextra
+          - texlive-games
+          - texlive-humanities
+          - texlive-langextra
+          - texlive-latexextra
+          - texlive-music
+          - texlive-pictures
+          - texlive-pstricks
+          - texlive-publishers
+          - texlive-science
 
 # pikaur packages:
 #

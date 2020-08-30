@@ -1,1 +1,20 @@
+#!/usr/bin/env ansible-playbook
 ---
+- hosts: local
+  tasks:
+  - name: Group for user account daniel
+    group:
+      name: daniel
+      state: present
+      system: no
+  - name: User account daniel
+    become: true
+    user:
+      state: present
+      name: daniel
+      system: no
+      comment: Daniel
+      groups: vboxusers,users,wheel,daniel
+      append: yes
+      shell: /usr/bin/zsh
+      create_home: true
