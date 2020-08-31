@@ -46,6 +46,38 @@
         no_extra_spaces: yes
       notify: grub-mkconfig
 
+    - name: faillock deny 12 failed logins
+      ini_file:
+        path: /etc/security/faillock.conf
+        mode: 0644
+        section: ''
+        option: deny
+        value: "12"
+        no_extra_spaces: no
+
+    - name: sudo with password for wheel group
+      ini_file:
+        path: /etc/sudoers
+        mode: 0440
+        section: ''
+        option: '%wheel ALL'
+        value: '(ALL) ALL'
+        no_extra_spaces: yes
+        backup: yes
+
+    - name: ssh socket activation disabled
+      ignore_errors: yes
+      service:
+        name: sshd.socket
+        state: stopped
+        enabled: no
+
+    - name: ssh daemon enabled and started
+      service:
+        name: sshd
+        state: started
+        enabled: yes
+
   handlers:
     - name: restart systemd journald
       service:
