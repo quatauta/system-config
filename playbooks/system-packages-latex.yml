@@ -1,0 +1,28 @@
+---
+- hosts: local
+  name: Packages LaTeX
+  become: true
+  tags:
+    - system
+    - package
+    - latex
+  tasks:
+    - name: LaTeX packages
+      package:
+        state: present
+        name:
+          - biber
+          - texlive-bibtexextra
+          - texlive-bin
+          - texlive-core
+          - texlive-fontsextra
+          # texlive-formatsextra
+          # texlive-games
+          - texlive-humanities
+          - texlive-langextra
+          - texlive-latexextra
+          # texlive-music
+          # texlive-pictures
+          # texlive-pstricks
+          # texlive-publishers
+          # texlive-science

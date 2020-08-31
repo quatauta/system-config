@@ -1,0 +1,254 @@
+---
+- hosts: local
+  name: Packages System
+  become: true
+  tags:
+    - system
+    - package
+  tasks:
+    - name: System packages
+      package:
+        state: present
+        name:
+          - acl
+          - acpi
+          - alsa-utils
+          - apparmor
+          - archlinux-keyring
+          - atop
+          - attr
+          - audit
+          - base
+          - bash
+          - bash-completion
+          - bc
+          - bind
+          - bolt
+          - bridge-utils
+          - btrfs-progs
+          - bzip2
+          - ca-certificates
+          - ca-certificates-mozilla
+          - ca-certificates-utils
+          - checksec
+          - cifs-utils
+          - coreutils
+          - cracklib
+          - cryptsetup
+          - curl
+          - dconf-editor
+          - ddrescue
+          - dhclient
+          - dhcpcd
+          - dmraid
+          - dnssec-anchors
+          - dosfstools
+          - dstat
+          - duperemove
+          - e2fsprogs
+          - efibootmgr
+          - efivar
+          - elfutils
+          - etckeeper
+          - ethtool
+          - fakeroot
+          - file
+          - filesystem
+          - findutils
+          - gawk
+          - geoclue
+          - geoip
+          - geoip-database
+          - gnu-netcat
+          - gpm
+          - gptfdisk
+          - grep
+          - grub
+          - gzip
+          - haveged
+          - hddtemp
+          - hdparm
+          - htop
+          - hwids
+          - hwloc
+          - iana-etc
+          - inetutils
+          - inotify-tools
+          - iotop
+          - iproute2
+          - iptables
+          - iputils
+          - ipw2100-fw
+          - ipw2200-fw
+          - iw
+          - iwd
+          - jemalloc
+          - kbd
+          - keyutils
+          - kmod
+          - less
+          - linux
+          - linux-firmware
+          - logrotate
+          - lsb-release
+          - lshw
+          - lsof
+          - lvm2
+          - man-db
+          - man-pages
+          - mkinitcpio
+          - mkinitcpio-busybox
+          - mlocate
+          - mosh
+          - mtools
+          - mtr
+          - namcap
+          - nano
+          - netctl
+          - net-tools
+          - networkmanager
+          - network-manager-applet
+          - nginx-mainline
+          - ntfs-3g
+          - openssh
+          - openssl
+          - os-prober
+          - pacman
+          - pacman-contrib
+          - pacman-mirrorlist
+          - pam
+          - pambase
+          - parallel
+          - parted
+          - patch
+          - pciutils
+          - pinentry
+          - powertop
+          - procps-ng
+          - psmisc
+          - pv
+          - pwgen
+          - recode
+          - reflector
+          - reiserfsprogs
+          - rhash
+          - rsync
+          - run-parts
+          - screen
+          - sed
+          - shadow
+          - smbclient
+          - snapper
+          - sqlite
+          - squashfs-tools
+          - strace
+          - sudo
+          - sysfsutils
+          - sysstat
+          - systemd
+          - systemd-resolvconf
+          - tar
+          - texinfo
+          - time
+          - tlp
+          - tlp-rdw
+          - tmux
+          - tmuxp
+          - traceroute
+          - tree
+          - tzdata
+          - udisks2
+          - unace
+          - unrar
+          - unzip
+          - upower
+          - usbmuxd
+          - usbutils
+          - util-linux
+          - wget
+          - which
+          - wireguard-tools
+          - wireless-regdb
+          - wireless_tools
+          - xfsprogs
+          - xxhash
+          - xz
+          - zenity
+          - zip
+          - zsh
+          - zsh-completions
+          - zstd
+
+# pikaur packages:
+#
+# ansible-completion-git
+# asciinema-edit
+# aurebuildcheck-git
+# autotiling
+# bitwarden-bin
+# dropbox
+# emacs-ansible
+# emacs-dash
+# emacs-f
+# emacs-s
+# emacs-yasnippet
+# etc-update
+# exif
+# findbrokenpkgs
+# git-extras
+# gnome-shell-extension-dash-to-dock
+# gnome-shell-extension-easyscreencast
+# gnome-shell-extension-topicons-plus
+# gnome-shell-extension-tray-icons
+# gnome-shell-extension-workspaces-to-dock
+# latencytop
+# lbdb
+# mailcheck
+# mmv
+# networkmanager-wireguard-git
+# nginx-unitd
+# nginx-unit-python
+# nginx-unit-ruby
+# pacman-auto-update
+# pacman-updatedb-hook
+# paper-icon-theme
+# pnmixer
+# python-soco
+# rcm
+# rtl8812au-dkms-git
+# ruby-pry
+# safecopy
+# sedutil
+# snapd
+# socos
+# starship-bin
+# sway-alttab-bin
+# ttf-menlo-powerline-git
+# ttf-meslo
+# ttf-roboto-slab
+# ttf-symbola
+# upd72020x-fw
+# urlview
+# usbtop
+# vim-gnupg
+# vim-guicolorscheme
+# vim-inkpot-git
+# vimix-gtk-themes
+# vimix-icon-theme
+# vim-rails
+# virtualbox-ext-oracle
+# waypipe
+# wev
+# wrk
+# xdgmenumaker
+# xkblayout
+# xkblayout-state-git
+# xkbset
+
+# not dell latitute: intel-ucode
+
+# own packages:
+# pam_mktemp
+# systemrescuecd
+# signify-mail
+# exercism-cli
