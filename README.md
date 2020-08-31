@@ -1,12 +1,13 @@
-# Ansible Starter
+# Quatauta's System Configuration
 
 ## Getting started
 
 ```sh
-git clone https://gitlab.com/quatauta/ansible-starter.git YOUR_PROJECT_NAME
+git clone https://gitlab.com/quatauta/system-config.git
 cd YOUR_PROJECT_NAME/
 ./bin/setup
 ./bin/lint
+ansible-playbook site.yml --check --diff
 ```
 
 ## Various Ansible commands
