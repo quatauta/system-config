@@ -6,7 +6,7 @@
     - system
     - config
   tasks:
-    - name: systemd journal max usage
+    - name: systemd journal max usage 50M
       ini_file:
         state: present
         path: /etc/systemd/journald.conf
@@ -15,7 +15,7 @@
         option: SystemMaxUse
         value: 50M
         no_extra_spaces: yes
-      notify: restart systemd journald
+      notify: systemd journald restart
 
     - name: grub timeout 1s
       ini_file:
@@ -36,7 +36,7 @@
           done
       notify: grub-mkconfig
 
-    - name: grub enable apparmor
+    - name: grub apparmor enabled
       ini_file:
         path: /etc/default/grub.d/apparmor.cfg
         mode: 0644
@@ -45,6 +45,12 @@
         value: '"${GRUB_CMDLINE_LINUX_DEFAULT} apparmor=1 lsm=lockdown,yama,apparmor"'
         no_extra_spaces: yes
       notify: grub-mkconfig
+
+    - name: apparmor service enabled
+      service:
+        name: apparmor
+        state: started
+        enabled: yes
 
     - name: faillock deny 12 failed logins
       ini_file:
@@ -78,11 +84,35 @@
         state: started
         enabled: yes
 
+    - name: service paccache.timer enabled
+      service:
+        name: paccache.timer
+        state: started
+        enabled: yes
+
+    - name: servie pacman-auto-update.timer enabled
+      service:
+        name: pacman-auto-update.timer
+        state: started
+        enabled: yes
+
+    - name: udev rules for U2F security keys like YubiKey
+      copy:
+        src: "../files/69-u2f-security-key.local.rules"
+        dest: "/etc/udev/rules.d/69-u2f-security-key.local.rules"
+        mode: 0644
+        owner: root
+        group: root
+      notify: udev reload
+
   handlers:
-    - name: restart systemd journald
+    - name: systemd journald restart
       service:
         name: systemd-journald
         state: restarted
 
     - name: grub-mkconfig
       command: grub-mkconfig -o /boot/grub/grub.cfg
+
+    - name: udev reload
+      command: udevadm control --reload
