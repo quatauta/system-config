@@ -98,12 +98,34 @@
 
     - name: udev rules for U2F security keys like YubiKey
       copy:
-        src: "../files/69-u2f-security-key.local.rules"
+        src: "69-u2f-security-key.local.rules"
         dest: "/etc/udev/rules.d/69-u2f-security-key.local.rules"
         mode: 0644
         owner: root
         group: root
       notify: udev reload
+
+    - name: duperemove package installed
+      package:
+        name: duperemove
+        state: present
+
+    - name: duperemove cron job
+      copy:
+        content: |
+          #!/bin/sh
+
+          HASHFILE="/var/lib/duperemove.hash"
+          OBJECTS="/bin /boot /etc /home /lib /lib64 /opt /root /sbin /srv /usr /var"
+
+          renice 20 $$    1>/dev/null
+          ionice -c3 -p$$ 1>/dev/null
+          duperemove -r -d --hashfile="${HASHFILE}" ${OBJECTS} 1>/dev/null
+          true
+        dest: "/etc/cron.daily/duperemove.sh"
+        mode: 0755
+        owner: root
+        group: root
 
   handlers:
     - name: systemd journald restart
