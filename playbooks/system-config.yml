@@ -127,6 +127,12 @@
         owner: root
         group: root
 
+    - name: systemd-resolved enabled
+      service:
+        name: systemd-resolved
+        enabled: yes
+        state: started
+
   handlers:
     - name: systemd journald restart
       service:
