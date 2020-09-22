@@ -133,6 +133,26 @@
         enabled: yes
         state: started
 
+    - name: repository archzfs
+      ini_file:
+        path: /etc/pacman.conf
+        mode: 0644
+        section: 'archzfs'
+        option: 'Server'
+        value: 'https://archzfs.com/$repo/x86_64/'
+        no_extra_spaces: no
+        backup: yes
+
+    - name: repository archzfs-kernels
+      ini_file:
+        path: /etc/pacman.conf
+        mode: 0644
+        section: 'archzfs-kernels'
+        option: 'Server'
+        value: 'https://end.re/$repo/'
+        no_extra_spaces: no
+        backup: yes
+
   handlers:
     - name: systemd journald restart
       service:
