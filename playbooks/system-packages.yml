@@ -104,7 +104,6 @@
           - mtr
           - namcap
           - nano
-          - netctl
           - net-tools
           - networkmanager
           - network-manager-applet
