@@ -17,14 +17,15 @@
         no_extra_spaces: yes
       notify: systemd journald restart
 
-    - name: grub timeout 1s
+    - name: grub timeout 2s
       ini_file:
         path: /etc/default/grub
         mode: 0644
         section: ''
         option: GRUB_TIMEOUT
-        value: '1'
+        value: '2'
         no_extra_spaces: yes
+      notify: grub-mkconfig
 
     - name: grub load /etc/default/grub.d/*.cfg
       blockinfile:
