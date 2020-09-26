@@ -142,7 +142,6 @@
         option: 'Server'
         value: 'https://archzfs.com/$repo/x86_64/'
         no_extra_spaces: no
-        backup: yes
 
     - name: repository archzfs-kernels
       ini_file:
@@ -152,7 +151,61 @@
         option: 'Server'
         value: 'https://end.re/$repo/'
         no_extra_spaces: no
-        backup: yes
+
+    - name: TLP power saving AC power management
+      ini_file:
+        path: /etc/tlp.d/90-local.conf
+        mode: 0644
+        section: ''
+        option: 'RUNTIME_PM_ON_AC'
+        value: 'auto'
+        no_extra_spaces: yes
+
+
+    - name: TLP power saving AC SATA link
+      ini_file:
+        path: /etc/tlp.d/90-local.conf
+        mode: 0644
+        section: ''
+        option: 'SATA_LINKPWR_ON_AC'
+        value: '"med_power_with_dipm max_performance"'
+        no_extra_spaces: yes
+
+    - name: TLP power saving Battery SATA link
+      ini_file:
+        path: /etc/tlp.d/90-local.conf
+        mode: 0644
+        section: ''
+        option: 'SATA_LINKPWR_ON_BAT'
+        value: '"med_power_with_dipm max_performance"'
+        no_extra_spaces: yes
+
+    - name: TLP power saving AC CPU
+      ini_file:
+        path: /etc/tlp.d/90-local.conf
+        mode: 0644
+        section: ''
+        option: 'SCHED_POWERSAVE_ON_AC'
+        value: '1'
+        no_extra_spaces: yes
+
+    - name: TLP power saving AC sound
+      ini_file:
+        path: /etc/tlp.d/90-local.conf
+        mode: 0644
+        section: ''
+        option: 'SOUND_POWER_SAVE_ON_AC'
+        value: '1'
+        no_extra_spaces: yes
+
+    - name: TLP power saving No USB autosuspend on shutdown
+      ini_file:
+        path: /etc/tlp.d/90-local.conf
+        mode: 0644
+        section: ''
+        option: 'USB_AUTOSUSPEND_DISABLE_ON_SHUTDOWN'
+        value: '1'
+        no_extra_spaces: yes
 
   handlers:
     - name: systemd journald restart
