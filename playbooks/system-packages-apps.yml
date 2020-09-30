@@ -12,13 +12,9 @@
       package:
         state: present
         name:
-          - android-tools
-          - anki
           - ansible
           - ansible-lint
           - aria2
-          - asciidoctor
-          - asciinema
           - atool
           - bat
           - bmon
@@ -26,7 +22,6 @@
           - diffstat
           - diffutils
           - docker
-          - docker-compose
           - elixir
           - emacs
           - evince
@@ -44,32 +39,17 @@
           - gnupg
           - gpgme
           - gramps
-          - grc
           - grim
           - gucharmap
           - gvim
-          - hspell
-          - hunspell
-          - hunspell-de
-          - hunspell-en_GB
-          - hunspell-en_US
-          - hyphen
-          - hyphen-de
-          - hyphen-en
           - id3v2
           - jpegoptim
-          - ldb
-          - lensfun
           - liferea
           - light
-          - lmdb
-          - lrzip
-          - lxmenu-data
           - lxterminal
           - mailcap
           - mako
           - mediainfo
-          - meld
           - mpg123
           - mpv
           - msmtp
@@ -87,7 +67,6 @@
           - paperkey
           - pcmanfm
           - qalculate-gtk
-          - qrencode
           - quodlibet
           - radicale
           - rdesktop
@@ -105,11 +84,13 @@
           - vdirsyncer
           - vim-ansible
           - vim-fugitive
-          - virtualbox
-          - virtualbox-guest-iso
-          - virtualbox-host-modules-arch
           - vorbisgain
           - vorbis-tools
           - xca
           - yamllint
           - youtube-dl
+
+    - name: Snap packages
+      community.general.snap:
+        name:
+          - hey-mail

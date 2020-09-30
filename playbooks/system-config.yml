@@ -80,18 +80,21 @@
         enabled: no
 
     - name: ssh daemon enabled and started
+      ignore_errors: yes
       service:
         name: sshd
         state: started
         enabled: yes
 
     - name: service paccache.timer enabled
+      ignore_errors: yes
       service:
         name: paccache.timer
         state: started
         enabled: yes
 
     - name: servie pacman-auto-update.timer enabled
+      ignore_errors: yes
       service:
         name: pacman-auto-update.timer
         state: started
@@ -106,33 +109,21 @@
         group: root
       notify: udev reload
 
-    - name: duperemove package installed
-      package:
-        name: duperemove
-        state: present
-
-    - name: duperemove cron job
-      copy:
-        content: |
-          #!/bin/sh
-
-          HASHFILE="/var/lib/duperemove.hash"
-          OBJECTS="/bin /boot /etc /home /lib /lib64 /opt /root /sbin /srv /usr /var"
-
-          renice 20 $$    1>/dev/null
-          ionice -c3 -p$$ 1>/dev/null
-          duperemove -r -d --hashfile="${HASHFILE}" ${OBJECTS} 1>/dev/null
-          true
-        dest: "/etc/cron.daily/duperemove.sh"
-        mode: 0755
-        owner: root
-        group: root
-
     - name: systemd-resolved enabled
+      ignore_errors: yes
       service:
         name: systemd-resolved
         enabled: yes
         state: started
+
+    - name: local repository aur-quatauta
+      ini_file:
+        path: /etc/pacman.conf
+        mode: 0644
+        section: 'quatauta'
+        option: 'Server'
+        value: 'file:///home/daniel/Documents/workspace/aur-$repo/repo'
+        no_extra_spaces: no
 
     - name: repository archzfs
       ini_file:
@@ -207,10 +198,81 @@
         no_extra_spaces: yes
 
     - name: TLP power saving service
+      ignore_errors: yes
       service:
         name: tlp
         state: started
-        enabled: true
+        enabled: yes
+
+    - name: mlocate updatedb timer
+      ignore_errors: yes
+      service:
+        name: updatedb.timer
+        state: started
+        enabled: yes
+
+    - name: systemd-resolved service
+      ignore_errors: yes
+      service:
+        name: systemd-resolved
+        state: started
+        enabled: yes
+
+    - name: systemd-resolved service
+      ignore_errors: yes
+      service:
+        name: NetworkManager
+        state: started
+        enabled: yes
+
+    - name: systemd-timesyncd service
+      ignore_errors: yes
+      service:
+        name: systemd-timesyncd
+        state: started
+        enabled: yes
+
+    - name: atop service
+      ignore_errors: yes
+      service:
+        name: atop
+        state: stopped
+        enabled: no
+
+    - name: atopacct service
+      ignore_errors: yes
+      service:
+        name: atopacct
+        state: stopped
+        enabled: no
+
+    - name: fstrim timer
+      ignore_errors: yes
+      service:
+        name: fstrim.timer
+        state: started
+        enabled: yes
+
+    - name: gpm service
+      ignore_errors: yes
+      service:
+        name: gpm
+        state: started
+        enabled: yes
+
+    - name: reflector timer
+      ignore_errors: yes
+      service:
+        name: reflector.timer
+        state: started
+        enabled: yes
+
+    - name: smartd service
+      ignore_errors: yes
+      service:
+        name: smartd
+        state: started
+        enabled: yes
 
   handlers:
     - name: systemd journald restart

@@ -19,6 +19,7 @@
           - attr
           - audit
           - base
+          - base-devel
           - bash
           - bash-completion
           - bc
@@ -138,7 +139,6 @@
           - shadow
           - smartmontools
           - smbclient
-          - snapper
           - sqlite
           - squashfs-tools
           - strace
@@ -167,7 +167,6 @@
           - util-linux
           - wget
           - which
-          - wireguard-tools
           - wireless-regdb
           - wireless_tools
           - xfsprogs
@@ -182,49 +181,31 @@
 # pikaur packages:
 #
 # ansible-completion-git
-# asciinema-edit
 # aurebuildcheck-git
 # autotiling
 # bitwarden-bin
 # dropbox
-# emacs-ansible
-# emacs-dash
-# emacs-f
-# emacs-s
-# emacs-yasnippet
 # etc-update
 # exif
 # findbrokenpkgs
-# git-extras
 # gnome-shell-extension-dash-to-dock
-# gnome-shell-extension-easyscreencast
 # gnome-shell-extension-topicons-plus
 # gnome-shell-extension-tray-icons
 # gnome-shell-extension-workspaces-to-dock
 # latencytop
-# lbdb
-# mailcheck
 # mmv
-# networkmanager-wireguard-git
 # nginx-unitd
 # nginx-unit-python
-# nginx-unit-ruby
 # pacman-auto-update
 # pacman-updatedb-hook
 # paper-icon-theme
 # pnmixer
-# python-soco
 # rcm
 # rtl8812au-dkms-git
 # ruby-pry
 # safecopy
-# sedutil
 # snapd
-# socos
 # starship-bin
-# sway-alttab-bin
-# ttf-menlo-powerline-git
-# ttf-meslo
 # ttf-roboto-slab
 # ttf-symbola
 # upd72020x-fw
@@ -236,7 +217,6 @@
 # vimix-gtk-themes
 # vimix-icon-theme
 # vim-rails
-# virtualbox-ext-oracle
 # waypipe
 # wev
 # wrk
@@ -248,7 +228,7 @@
 # not dell latitute: intel-ucode
 
 # own packages:
+#
 # pam_mktemp
-# systemrescuecd
 # signify-mail
 # exercism-cli
