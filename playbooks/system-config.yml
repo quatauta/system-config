@@ -15,7 +15,7 @@
         option: SystemMaxUse
         value: 50M
         no_extra_spaces: yes
-      notify: systemd journald restart
+      notify: restart systemd-journald
 
     - name: grub timeout 2s
       ini_file:
@@ -107,7 +107,7 @@
         mode: 0644
         owner: root
         group: root
-      notify: udev reload
+      notify: reload udev
 
     - name: systemd-resolved enabled
       ignore_errors: yes
@@ -274,8 +274,19 @@
         state: started
         enabled: yes
 
+    - name: tmpfile for minimum hibernate image size
+      blockinfile:
+        path: /etc/tmpfiles.d/hibernate-image-size-minimum.conf
+        block: |
+          # Path                  Mode UID GID Age Argument
+          w /sys/power/image_size -    -   -   -   0
+        create: yes
+        group: root
+        owner: root
+        mode: 0644
+
   handlers:
-    - name: systemd journald restart
+    - name: restart systemd-journald
       service:
         name: systemd-journald
         state: restarted
@@ -283,5 +294,5 @@
     - name: grub-mkconfig
       command: grub-mkconfig -o /boot/grub/grub.cfg
 
-    - name: udev reload
+    - name: reload udev
       command: udevadm control --reload
