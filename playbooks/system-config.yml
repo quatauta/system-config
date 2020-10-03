@@ -282,8 +282,8 @@
           w /sys/power/image_size -    -   -   -   0
         create: yes
         group: root
-        owner: root
         mode: 0644
+        owner: root
 
     - name: mkinitcpio hooks
       ini_file:
@@ -294,6 +294,24 @@
         value: "(base udev autodetect modconf block keyboard zfs filesystems resume fsck)"
         no_extra_spaces: yes
       notify: mkinitcpio
+
+    - name: shell aliases
+      blockinfile:
+        path: /etc/profile.d/alias.local.sh
+        block: |
+          [ -x "$(command -v dircolors)" ] && eval $(dircolors)
+          export LS_OPTIONS="--color=auto -h -v"
+          alias ls="ls ${LS_OPTIONS}"
+          alias ll="ls -l"
+          alias la="ls -A"
+          alias lla="ls -lA"
+          alias cp="cp -i"
+          alias mv="mv -i"
+          alias rm="rm -i"
+        create: yes
+        group: root
+        mode: 0644
+        owner: root
 
   handlers:
     - name: restart systemd-journald
