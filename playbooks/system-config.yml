@@ -285,6 +285,16 @@
         owner: root
         mode: 0644
 
+    - name: mkinitcpio hooks
+      ini_file:
+        path: /etc/mkinitcpio.conf
+        mode: 0644
+        section: ""
+        option: "HOOKS"
+        value: "(base udev autodetect modconf block keyboard zfs filesystems resume fsck)"
+        no_extra_spaces: yes
+      notify: mkinitcpio
+
   handlers:
     - name: restart systemd-journald
       service:
@@ -296,3 +306,6 @@
 
     - name: reload udev
       command: udevadm control --reload
+
+    - name: mkinitcpio
+      command: mkinitcpio -P
