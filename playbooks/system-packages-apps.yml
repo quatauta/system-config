@@ -38,7 +38,6 @@
           - gitlab-runner
           - gnupg
           - gpgme
-          - gramps
           - grim
           - gucharmap
           - gvim
@@ -89,8 +88,3 @@
           - xca
           - yamllint
           - youtube-dl
-
-    - name: Snap packages
-      community.general.snap:
-        name:
-          - hey-mail
