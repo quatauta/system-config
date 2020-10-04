@@ -300,7 +300,7 @@
         path: /etc/profile.d/alias.local.sh
         block: |
           [ -x "$(command -v dircolors)" ] && eval $(dircolors)
-          export LS_OPTIONS="--color=auto -h -v"
+          export LS_OPTIONS="--color=auto -hpv"
           alias ls="ls ${LS_OPTIONS}"
           alias ll="ls -l"
           alias la="ls -A"
@@ -308,6 +308,8 @@
           alias cp="cp -i"
           alias mv="mv -i"
           alias rm="rm -i"
+          alias less="less -MNS"
+          alias o="less"
         create: yes
         group: root
         mode: 0644
