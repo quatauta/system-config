@@ -1,4 +1,12 @@
 #!/bin/sh
 
-echo "We need: shellcheck"
-pip install -r "$(git rev-parse --show-toplevel 2>/dev/null || echo ".")/requirements.txt"
+echo "Please install the following packages:"
+echo "- ansible      (also available as Python package installed by pip from requirements.txt, see below)"
+echo "- ansible-lint (also available as Python package installed by pip from requirements.txt, see below)"
+echo "- shellcheck"
+echo "- yamllint     (also available as Python package installed by pip from requirements.txt, see below)"
+echo "To install ansible, ansible-lint and yamllint with pip:"
+echo "- pip install -r requirements.txt"
+
+echo "Roles from Ansible Galaxy:"
+ansible-galaxy install -r roles/requirements.yml
