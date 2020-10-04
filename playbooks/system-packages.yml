@@ -224,6 +224,8 @@
 # xkblayout
 # xkblayout-state-git
 # xkbset
+# kernel-modules-hook
+# sanoid
 
 # not dell latitute: intel-ucode
 
