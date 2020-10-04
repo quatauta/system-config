@@ -1,0 +1,58 @@
+---
+- hosts: local
+  name: Packages AUR
+  become: true
+  tags:
+    - system
+    - package
+    - arch
+    - aur
+  roles:
+    - kewlfft.aur
+  tasks:
+    - name: System packages AUR
+      aur:
+        state: present
+        name:
+          - aurebuildcheck-git
+          - autotiling
+          - bitwarden-bin
+          - dropbox
+          - etc-update
+          - exif
+          - findbrokenpkgs
+          - gnome-shell-extension-dash-to-dock
+          - kernel-modules-hook
+          - latencytop
+          - mmv
+          - nginx-unitd
+          - nginx-unit-python
+          - pacman-auto-update
+          - pacman-updatedb-hook
+          - paper-icon-theme
+          - pnmixer
+          - rcm
+          - ruby-pry
+          - safecopy
+          - sanoid
+          - snapd
+          - starship-bin
+          - ttf-roboto-slab
+          - ttf-symbola
+          - urlview
+          - vim-gnupg
+          - vim-guicolorscheme
+          - vim-inkpot-git
+          - vimix-gtk-themes
+          - vimix-icon-theme
+          - vim-rails
+          - waypipe
+          - wev
+          - wrk
+          - xdgmenumaker
+          - xkblayout
+          - xkblayout-state-git
+          - xkbset
+
+# only if USB device present rtl8812au-dkms-git
+# only if USB device present upd72020x-fw
