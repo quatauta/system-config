@@ -93,7 +93,21 @@
         state: started
         enabled: yes
 
-    - name: servie pacman-auto-update.timer enabled
+    - name: service pacman-auto-update.timer frequency
+      blockinfile:
+        path: /etc/systemd/system/pacman-auto-update.timer.d/frequency-24-hours.conf
+        block: |
+          [Timer]
+          OnBootSec=
+          OnBootSec=5min
+          OnUnitActiveSec=24hour
+        create: yes
+        group: root
+        mode: 0644
+        owner: root
+      notify: reload systemd daemon
+
+    - name: service pacman-auto-update.timer enabled
       ignore_errors: yes
       service:
         name: pacman-auto-update.timer
@@ -329,3 +343,7 @@
 
     - name: mkinitcpio
       command: mkinitcpio -P
+
+    - name: reload systemd daemon
+      systemd:
+        daemon-reload: yes
