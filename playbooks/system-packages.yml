@@ -33,6 +33,7 @@
           - ca-certificates-utils
           - checksec
           - cifs-utils
+          - cmake
           - coreutils
           - cracklib
           - cryptsetup
@@ -45,7 +46,6 @@
           - dnssec-anchors
           - dosfstools
           - dstat
-          - duperemove
           - e2fsprogs
           - efibootmgr
           - efivar
@@ -123,6 +123,7 @@
           - patch
           - pciutils
           - pinentry
+          - pkgstats
           - powertop
           - procps-ng
           - psmisc

@@ -24,6 +24,7 @@
           - gnome-shell-extension-dash-to-dock
           - kernel-modules-hook
           - latencytop
+          - localepurge
           - mmv
           - nginx-unitd
           - nginx-unit-python
@@ -32,6 +33,7 @@
           - paper-icon-theme
           - pnmixer
           - rcm
+          - redshift-wayland-git
           - ruby-pry
           - safecopy
           - sanoid
