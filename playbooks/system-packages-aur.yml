@@ -21,10 +21,10 @@
           - etc-update
           - exif
           - findbrokenpkgs
+          - gitlab-glab
           - gnome-shell-extension-dash-to-dock
           - kernel-modules-hook
           - latencytop
-          - localepurge
           - mmv
           - nginx-unitd
           - nginx-unit-python
@@ -58,3 +58,4 @@
 
 # only if USB device present rtl8812au-dkms-git
 # only if USB device present upd72020x-fw
+# localepurge
