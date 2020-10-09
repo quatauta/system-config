@@ -1,10 +1,11 @@
 #!/bin/sh
 
 echo "Please install the following packages:"
-echo "- ansible      (also available as Python package installed by pip from requirements.txt, see below)"
-echo "- ansible-lint (also available as Python package installed by pip from requirements.txt, see below)"
+echo "- ansible       (also available as Python package installed by pip from requirements.txt, see below)"
+echo "- ansible-lint  (also available as Python package installed by pip from requirements.txt, see below)"
+echo "- python-psutil (also available as Python package installed by pip from requirements.txt, see below)"
 echo "- shellcheck"
-echo "- yamllint     (also available as Python package installed by pip from requirements.txt, see below)"
+echo "- yamllint      (also available as Python package installed by pip from requirements.txt, see below)"
 echo "To install ansible, ansible-lint and yamllint with pip:"
 echo "- pip install -r requirements.txt"
 

@@ -329,6 +329,14 @@
         mode: 0644
         owner: root
 
+    - name: gdm config night-light
+      become_user: gdm
+      ignore_errors: true
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/color night-light-enabled"
+        value: "true"
+        state: present
+
   handlers:
     - name: restart systemd-journald
       service:

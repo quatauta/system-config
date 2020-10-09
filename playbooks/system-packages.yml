@@ -75,6 +75,7 @@
           - iana-etc
           - inetutils
           - inotify-tools
+          - intel-ucode
           - iotop
           - iproute2
           - iptables
@@ -129,6 +130,7 @@
           - psmisc
           - pv
           - pwgen
+          - python-psutil
           - recode
           - reflector
           - reiserfsprogs
@@ -178,8 +180,6 @@
           - zsh
           - zsh-completions
           - zstd
-
-# not dell latitute: intel-ucode
 
 # own packages:
 #
