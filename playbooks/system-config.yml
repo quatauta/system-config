@@ -72,13 +72,6 @@
         no_extra_spaces: yes
         backup: yes
 
-    - name: ssh socket activation disabled
-      ignore_errors: yes
-      service:
-        name: sshd.socket
-        state: stopped
-        enabled: no
-
     - name: ssh daemon enabled and started
       ignore_errors: yes
       service:
