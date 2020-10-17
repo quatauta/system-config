@@ -109,6 +109,7 @@
           - net-tools
           - networkmanager
           - network-manager-applet
+          - nftables
           - nginx-mainline
           - ntfs-3g
           - openssh
