@@ -6,7 +6,7 @@
     - system
     - config
   tasks:
-    - name: systemd journal max usage 50M
+    - name: systemd journal max disk usage
       ini_file:
         state: present
         path: /etc/systemd/journald.conf
