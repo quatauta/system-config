@@ -166,7 +166,7 @@
       blockinfile:
         path: /etc/profile.d/alias.local.sh
         block: |
-          [ -x "$(command -v dircolors)" ] && eval $(dircolors)
+          [ -x "$(command -v dircolors)" ] && eval "$(dircolors)"
           export LS_OPTIONS='--color=auto -hpv'
           alias ls='ls ${LS_OPTIONS}'
           alias ll='ls -l'
