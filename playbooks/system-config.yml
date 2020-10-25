@@ -47,12 +47,6 @@
         no_extra_spaces: yes
       notify: grub-mkconfig
 
-    - name: apparmor service enabled
-      service:
-        name: apparmor
-        state: started
-        enabled: yes
-
     - name: faillock deny 12 failed logins
       ini_file:
         path: /etc/security/faillock.conf
@@ -72,20 +66,6 @@
         no_extra_spaces: yes
         backup: yes
 
-    - name: ssh daemon enabled and started
-      ignore_errors: yes
-      service:
-        name: sshd
-        state: started
-        enabled: yes
-
-    - name: service paccache.timer enabled
-      ignore_errors: yes
-      service:
-        name: paccache.timer
-        state: started
-        enabled: yes
-
     - name: service pacman-auto-update.timer frequency
       blockinfile:
         path: /etc/systemd/system/pacman-auto-update.timer.d/frequency-24-hours.conf
@@ -100,13 +80,6 @@
         owner: root
       notify: reload systemd daemon
 
-    - name: service pacman-auto-update.timer enabled
-      ignore_errors: yes
-      service:
-        name: pacman-auto-update.timer
-        state: started
-        enabled: yes
-
     - name: udev rules for U2F security keys like YubiKey
       copy:
         src: "69-u2f-security-key.local.rules"
@@ -116,170 +89,57 @@
         group: root
       notify: reload udev
 
-    - name: systemd-resolved enabled
-      ignore_errors: yes
-      service:
-        name: systemd-resolved
-        enabled: yes
-        state: started
-
-    - name: local repository aur-quatauta
+    - name: pacman repositories
       ini_file:
         path: /etc/pacman.conf
         mode: 0644
-        section: 'quatauta'
-        option: 'Server'
-        value: 'file:///home/daniel/Documents/workspace/aur-$repo/repo'
+        section: "{{ item.repository }}"
+        option: "Server"
+        value: "{{ item.url }}"
         no_extra_spaces: no
+      loop:
+        - { repository: 'archzfs-kernels', url: 'https://end.re/$repo/' }
+        - { repository: "archzfs", url: "https://archzfs.com/$repo/x86_64/" }
+        - { repository: "quatauta", url: "file:///home/daniel/Documents/workspace/aur-$repo/repo" }
 
-    - name: repository archzfs
-      ini_file:
-        path: /etc/pacman.conf
-        mode: 0644
-        section: 'archzfs'
-        option: 'Server'
-        value: 'https://archzfs.com/$repo/x86_64/'
-        no_extra_spaces: no
-
-    - name: repository archzfs-kernels
-      ini_file:
-        path: /etc/pacman.conf
-        mode: 0644
-        section: 'archzfs-kernels'
-        option: 'Server'
-        value: 'https://end.re/$repo/'
-        no_extra_spaces: no
-
-    - name: TLP power saving AC power management
+    - name: TLP power savings
       ini_file:
         path: /etc/tlp.d/90-local.conf
         mode: 0644
         section: ''
-        option: 'RUNTIME_PM_ON_AC'
-        value: 'auto'
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
         no_extra_spaces: yes
+      loop:
+        - { option: "RUNTIME_PM_ON_AC", value: "auto" }
+        - { option: "SATA_LINKPWR_ON_AC", value: '"med_power_with_dipm max_performance"' }
+        - { option: "SATA_LINKPWR_ON_BAT", value: '"med_power_with_dipm max_performance"' }
+        - { option: "SCHED_POWERSAVE_ON_AC", value: "1" }
+        - { option: "SOUND_POWER_SAVE_ON_AC", value: "1" }
+        - { option: "USB_AUTOSUSPEND_DISABLE_ON_SHUTDOWN", value: "1" }
 
-    - name: TLP power saving AC SATA link
-      ini_file:
-        path: /etc/tlp.d/90-local.conf
-        mode: 0644
-        section: ''
-        option: 'SATA_LINKPWR_ON_AC'
-        value: '"med_power_with_dipm max_performance"'
-        no_extra_spaces: yes
-
-    - name: TLP power saving Battery SATA link
-      ini_file:
-        path: /etc/tlp.d/90-local.conf
-        mode: 0644
-        section: ''
-        option: 'SATA_LINKPWR_ON_BAT'
-        value: '"med_power_with_dipm max_performance"'
-        no_extra_spaces: yes
-
-    - name: TLP power saving AC CPU
-      ini_file:
-        path: /etc/tlp.d/90-local.conf
-        mode: 0644
-        section: ''
-        option: 'SCHED_POWERSAVE_ON_AC'
-        value: '1'
-        no_extra_spaces: yes
-
-    - name: TLP power saving AC sound
-      ini_file:
-        path: /etc/tlp.d/90-local.conf
-        mode: 0644
-        section: ''
-        option: 'SOUND_POWER_SAVE_ON_AC'
-        value: '1'
-        no_extra_spaces: yes
-
-    - name: TLP power saving No USB autosuspend on shutdown
-      ini_file:
-        path: /etc/tlp.d/90-local.conf
-        mode: 0644
-        section: ''
-        option: 'USB_AUTOSUSPEND_DISABLE_ON_SHUTDOWN'
-        value: '1'
-        no_extra_spaces: yes
-
-    - name: TLP power saving service
+    - name: services
       ignore_errors: yes
       service:
-        name: tlp
-        state: started
-        enabled: yes
-
-    - name: mlocate updatedb timer
-      ignore_errors: yes
-      service:
-        name: updatedb.timer
-        state: started
-        enabled: yes
-
-    - name: systemd-resolved service
-      ignore_errors: yes
-      service:
-        name: systemd-resolved
-        state: started
-        enabled: yes
-
-    - name: systemd-resolved service
-      ignore_errors: yes
-      service:
-        name: NetworkManager
-        state: started
-        enabled: yes
-
-    - name: systemd-timesyncd service
-      ignore_errors: yes
-      service:
-        name: systemd-timesyncd
-        state: started
-        enabled: yes
-
-    - name: atop service
-      ignore_errors: yes
-      service:
-        name: atop
-        state: stopped
-        enabled: no
-
-    - name: atopacct service
-      ignore_errors: yes
-      service:
-        name: atopacct
-        state: stopped
-        enabled: no
-
-    - name: fstrim timer
-      ignore_errors: yes
-      service:
-        name: fstrim.timer
-        state: started
-        enabled: yes
-
-    - name: gpm service
-      ignore_errors: yes
-      service:
-        name: gpm
-        state: started
-        enabled: yes
-
-    - name: reflector timer
-      ignore_errors: yes
-      service:
-        name: reflector.timer
-        state: started
-        enabled: yes
-
-    - name: smartd service
-      ignore_errors: yes
-      service:
-        name: smartd
-        state: started
-        enabled: yes
+        name: "{{ item.name }}"
+        state: "{{ item.state }}"
+        enabled: "{{ item.enabled }}"
+      loop:
+        - { state: started, enabled: yes, name: "apparmor" }
+        - { state: started, enabled: yes, name: "fstrim.timer" }
+        - { state: started, enabled: yes, name: "gpm" }
+        - { state: started, enabled: yes, name: "NetworkManager" }
+        - { state: started, enabled: yes, name: "paccache.timer" }
+        - { state: started, enabled: yes, name: "pacman-auto-update.timer" }
+        - { state: started, enabled: yes, name: "reflector.timer" }
+        - { state: started, enabled: yes, name: "smartd" }
+        - { state: started, enabled: yes, name: "sshd" }
+        - { state: started, enabled: yes, name: "systemd-resolved" }
+        - { state: started, enabled: yes, name: "systemd-timesyncd" }
+        - { state: started, enabled: yes, name: "tlp" }
+        - { state: started, enabled: yes, name: "updatedb.timer" }
+        - { state: stopped, enabled: no, name: "atop" }
+        - { state: stopped, enabled: no, name: "atopacct" }
 
     - name: tmpfile for minimum hibernate image size
       blockinfile:
