@@ -177,6 +177,10 @@
           alias rm="rm -i"
           alias less="less -MNS"
           alias o="less"
+          alias pse="ps -eH u"
+          alias pses="ps -eH S"
+          alias psu="ps -u$EUID -H u"
+          alias psus="ps -u$EUID -H s"
         create: yes
         group: root
         mode: 0644
