@@ -2,17 +2,22 @@
 
 PROJECT_HOME="$(git rev-parse --show-toplevel 2>/dev/null || echo ".")"
 
+(
 echo "shellcheck:"
 (
     find "${PROJECT_HOME}" -iname "*.sh"
     grep -Elr '^#!/[^ ]*sh($| )' "${PROJECT_HOME}"
 ) | sort -u | grep -v '\.git/.*sample$' | xargs -n1 realpath --relative-to "." | xargs -r shellcheck -o all 
-
+) &&
+(
 echo "yamllint: "
 yamllint .
-
+) &&
+(
 echo "ansible-lint: "
 ansible-lint
-
+) &&
+(
 echo "ansible-playbook syntax check: "
 ansible-playbook --syntax-check "${PROJECT_HOME}/site.yml" "${PROJECT_HOME}/playbooks"/*.yml
+)
