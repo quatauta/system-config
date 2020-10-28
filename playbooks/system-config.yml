@@ -198,6 +198,15 @@
         - { key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout", value: 60, state: present }
         - { key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout", value: 60, state: present }
 
+    - name: reflector settings for pacman mirrorlist
+      blockinfile:
+        path: /etc/xdg/reflector/reflector.conf
+        block: "--country Luxembourg,Germany,Belgium,France"
+        create: yes
+        group: root
+        mode: 0644
+        owner: root
+
   handlers:
     - name: restart systemd-journald
       service:
