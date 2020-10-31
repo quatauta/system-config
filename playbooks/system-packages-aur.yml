@@ -26,6 +26,7 @@
           - kernel-modules-hook
           - latencytop
           - mmv
+          - networkmanager-wireguard
           - nginx-unitd
           - nginx-unit-python
           - pacman-auto-update
