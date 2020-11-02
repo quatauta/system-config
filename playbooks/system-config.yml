@@ -181,6 +181,9 @@
           alias pses='ps -eH S'
           alias psu='ps -u"${EUID}" -H u'
           alias psus='ps -u"${EUID}" -H S'
+          alias   ...='cd ../..'
+          alias  ....='cd ../../..'
+          alias .....='cd ../../../..'
         create: yes
         group: root
         mode: 0644
