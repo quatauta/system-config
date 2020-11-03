@@ -30,6 +30,7 @@
           - nginx-unitd
           - nginx-unit-python
           - pacman-auto-update
+          - pacman-systemd-inhibit
           - pacman-updatedb-hook
           - paper-icon-theme
           - pnmixer
