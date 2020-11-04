@@ -10,6 +10,10 @@
       state: present
       system: no
 
+  - name: gather groups
+    getent:
+      database: group
+
   - name: user daniel
     become: true
     user:
@@ -17,16 +21,22 @@
       name: daniel
       system: no
       comment: Daniel
-      groups: users,wheel,daniel,video
+      groups: daniel
       append: yes
       shell: /usr/bin/zsh
       create_home: true
 
-  - name: user daniel group vboxusers
+  - name: user daniel groups
     become: true
     ignore_errors: yes
     user:
       state: present
       name: daniel
-      groups: vboxusers
+      groups: "{{ item }}"
       append: yes
+    when: item in ansible_facts.getent_group
+    loop:
+    - users
+    - vboxusers
+    - video
+    - wheel
