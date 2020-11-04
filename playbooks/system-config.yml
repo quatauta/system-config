@@ -210,6 +210,14 @@
         mode: 0644
         owner: root
 
+    - name: ruby gems without documentation
+      lineinfile:
+        path: /etc/gemrc
+        mode: 0644
+        line: "gem: --user-install --no-document"
+        regexp: "^gem:"
+        state: present
+
   handlers:
     - name: restart systemd-journald
       service:
