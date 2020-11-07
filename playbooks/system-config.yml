@@ -219,53 +219,32 @@
         state: present
 
     - name: docker system prune script
-      blockinfile:
-        path: /usr/local/bin/docker-system-prune.sh
-        block: |
-          #!/bin/sh
-
-          /usr/bin/systemctl status docker 1>/dev/null 2>&1 || STOP_DOCKER=1
-          /usr/bin/systemctl start docker
-          /usr/bin/docker system prune -f
-
-          [ "${STOP_DOCKER}" == "1" ] && /usr/bin/systemctl stop docker
-        create: yes
+      copy:
+        src: docker-system-prune.sh
+        dest: /usr/local/bin/docker-system-prune.sh
         group: root
         mode: 0755
         owner: root
 
-    - name: docker system prune service
-      blockinfile:
-        path: /etc/systemd/system/docker-system-prune.service
-        block: |
-          [Unit]
-          Description=Docker System Prune cleanup
-
-          [Service]
-          Type=oneshot
-          ExecStart=/usr/local/bin/docker-system-prune.sh
+    - name: docker system prune service and timer
+      ini_file:
+        path: "/etc/systemd/system/docker-system-prune.{{ item.type }}"
+        section: "{{ item.section }}"
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
         create: yes
         group: root
+        no_extra_spaces: yes
         mode: 0644
         owner: root
-
-    - name: docker system prune timer
-      blockinfile:
-        path: /etc/systemd/system/docker-system-prune.timer
-        block: |
-          [Unit]
-          Description=Docker System Prune cleanup timer
-
-          [Timer]
-          OnCalendar=Weekly
-          Persistent=true
-
-          [Install]
-          WantedBy=timers.target
-        create: yes
-        group: root
-        mode: 0644
-        owner: root
+      loop:
+        - { type: "service", section: "Unit", option: "Description", value: "Docker System Prune cleanup" }
+        - { type: "service", section: "Service", option: "Type", value: "oneshot" }
+        - { type: "service", section: "Service", option: "ExecStart", value: "/usr/local/bin/docker-system-prune.sh" }
+        - { type: "timer", section: "Unit", option: "Description", value: "Docker System Prune cleanup timer" }
+        - { type: "timer", section: "Timer", option: "OnCalendar", value: "Weekly" }
+        - { type: "timer", section: "Timer", option: "Persistent", value: "true" }
+        - { type: "timer", section: "Install", option: "WantedBy", value: "timers.target" }
 
     - name: docker system prune timer enabled
       service:
