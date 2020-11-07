@@ -236,7 +236,7 @@
 
     - name: docker system prune service
       blockinfile:
-        path: /usr/lib/systemd/system/docker-system-prune.service
+        path: /etc/systemd/system/docker-system-prune.service
         block: |
           [Unit]
           Description=Docker System Prune cleanup
@@ -251,7 +251,7 @@
 
     - name: docker system prune timer
       blockinfile:
-        path: /usr/lib/systemd/system/docker-system-prune.timer
+        path: /etc/systemd/system/docker-system-prune.timer
         block: |
           [Unit]
           Description=Docker System Prune cleanup timer
