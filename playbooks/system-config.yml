@@ -218,6 +218,61 @@
         regexp: "^gem:"
         state: present
 
+    - name: docker system prune script
+      blockinfile:
+        path: /usr/local/bin/docker-system-prune.sh
+        block: |
+          #!/bin/sh
+
+          /usr/bin/systemctl status docker 1>/dev/null 2>&1 || STOP_DOCKER=1
+          /usr/bin/systemctl start docker
+          /usr/bin/docker system prune -f
+
+          [ "${STOP_DOCKER}" == "1" ] && /usr/bin/systemctl stop docker
+        create: yes
+        group: root
+        mode: 0755
+        owner: root
+
+    - name: docker system prune service
+      blockinfile:
+        path: /usr/lib/systemd/system/docker-system-prune.service
+        block: |
+          [Unit]
+          Description=Docker System Prune cleanup
+
+          [Service]
+          Type=oneshot
+          ExecStart=/usr/local/bin/docker-system-prune.sh
+        create: yes
+        group: root
+        mode: 0644
+        owner: root
+
+    - name: docker system prune timer
+      blockinfile:
+        path: /usr/lib/systemd/system/docker-system-prune.timer
+        block: |
+          [Unit]
+          Description=Docker System Prune cleanup timer
+
+          [Timer]
+          OnCalendar=Weekly
+          Persistent=true
+
+          [Install]
+          WantedBy=timers.target
+        create: yes
+        group: root
+        mode: 0644
+        owner: root
+
+    - name: docker system prune timer enabled
+      service:
+        name: docker-system-prune.timer
+        state: started
+        enabled: yes
+
   handlers:
     - name: restart systemd-journald
       service:
