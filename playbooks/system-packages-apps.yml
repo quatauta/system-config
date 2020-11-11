@@ -67,10 +67,10 @@
           - pcmanfm
           - qalculate-gtk
           - radicale
+          - rclone
           - rdesktop
           - ripgrep
           - rofi
-          - rsnapshot
           - ruby
           - ruby-bundler
           - rubygems
