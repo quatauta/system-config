@@ -42,11 +42,11 @@
     - video
     - wheel
 
-  - name: snap hey-mail fontconfig workaround
-    file:
-      path: "{{ user_daniel.home }}/snap/hey-mail/common/.cache/fontconfig"
-      state: file
-      group: daniel
-      owner: daniel
-      mode: 0644
-    when: user_daniel.home
+# - name: snap hey-mail fontconfig workaround
+#   file:
+#     path: "{{ user_daniel.home }}/snap/hey-mail/common/.cache/fontconfig"
+#     state: file
+#     group: daniel
+#     owner: daniel
+#     mode: 0644
+#   when: user_daniel.home
