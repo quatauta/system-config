@@ -6,6 +6,20 @@
     - system
     - config
   tasks:
+    - name: systemd logind idle action
+      ini_file:
+        state: present
+        path: /etc/systemd/logind.conf
+        mode: 0644
+        section: Login
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+        no_extra_spaces: yes
+      notify: restart systemd-logind
+      loop:
+        - { option: "IdleAction", value: "suspend-than-hibernate" }
+        - { option: "IdleActionSec", value: "10min" }
+
     - name: systemd journal max disk usage
       ini_file:
         state: present
@@ -253,6 +267,11 @@
         enabled: yes
 
   handlers:
+    - name: restart systemd-logind
+      service:
+        name: systemd-logind
+        state: restarted
+
     - name: restart systemd-journald
       service:
         name: systemd-journald
