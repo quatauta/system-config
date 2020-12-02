@@ -80,18 +80,34 @@
         no_extra_spaces: yes
         backup: yes
 
-    - name: service pacman-auto-update.timer frequency
-      blockinfile:
-        path: /etc/systemd/system/pacman-auto-update.timer.d/frequency-24-hours.conf
-        block: |
-          [Timer]
-          OnBootSec=
-          OnBootSec=5min
-          OnUnitActiveSec=24hour
+    - name: service pacman-auto-update.service wait for online connection
+      ini_file:
+        path: /etc/systemd/system/pacman-auto-update.service.d/wait-for-online.conf
+        section: "Service"
+        option: "ExecStartPre"
+        value: "/usr/bin/nm-online -s -t 300"
         create: yes
         group: root
         mode: 0644
         owner: root
+      notify: reload systemd daemon
+
+    - name: service pacman-auto-update.timer frequency
+      ini_file:
+        path: /etc/systemd/system/pacman-auto-update.timer.d/frequency-24-hours.conf
+        section: "{{ item.section }}"
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+        create: yes
+        group: root
+        mode: 0644
+        owner: root
+      loop:
+        - { section: "Unit", option: "Description", value: "Automatic Update once per day" }
+        - { section: "Timer", option: "OnBootSec", value: "" }
+        - { section: "Timer", option: "OnUnitActiveSec", value: "" }
+        - { section: "Timer", option: "OnCalendar", value: "daily" }
+        - { section: "Timer", option: "Persistent", value: "true" }
       notify: reload systemd daemon
 
     - name: udev rules for U2F security keys like YubiKey
@@ -126,8 +142,6 @@
         no_extra_spaces: yes
       loop:
         - { option: "RUNTIME_PM_ON_AC", value: "auto" }
-        - { option: "SATA_LINKPWR_ON_AC", value: '"med_power_with_dipm max_performance"' }
-        - { option: "SATA_LINKPWR_ON_BAT", value: '"med_power_with_dipm max_performance"' }
         - { option: "SCHED_POWERSAVE_ON_AC", value: "1" }
         - { option: "SOUND_POWER_SAVE_ON_AC", value: "1" }
         - { option: "USB_AUTOSUSPEND_DISABLE_ON_SHUTDOWN", value: "1" }
@@ -140,6 +154,9 @@
         enabled: "{{ item.enabled }}"
       loop:
         - { state: started, enabled: yes, name: "apparmor" }
+        - { state: stopped, enabled: no, name: "atop" }
+        - { state: stopped, enabled: no, name: "atopacct" }
+        - { state: started, enabled: yes, name: "bluetooth" }
         - { state: started, enabled: yes, name: "fstrim.timer" }
         - { state: started, enabled: yes, name: "gpm" }
         - { state: started, enabled: yes, name: "NetworkManager" }
@@ -152,8 +169,6 @@
         - { state: started, enabled: yes, name: "systemd-timesyncd" }
         - { state: started, enabled: yes, name: "tlp" }
         - { state: started, enabled: yes, name: "updatedb.timer" }
-        - { state: stopped, enabled: no, name: "atop" }
-        - { state: stopped, enabled: no, name: "atopacct" }
 
     - name: tmpfile for minimum hibernate image size
       blockinfile:
