@@ -128,9 +128,9 @@
         value: "{{ item.url }}"
         no_extra_spaces: no
       loop:
-        - { repository: 'archzfs-kernels', url: 'https://end.re/$repo/' }
-        - { repository: "archzfs", url: "https://archzfs.com/$repo/x86_64/" }
+        - { repository: "archzfs", url: "https://archzfs.com/$repo/$arch" }
         - { repository: "quatauta", url: "file:///home/daniel/Documents/workspace/aur-$repo/repo" }
+        - { repository: 'zfs-linux', url: 'http://kernels.archzfs.com/$repo/' }
 
     - name: TLP power savings
       ini_file:
@@ -143,8 +143,9 @@
       loop:
         - { option: "RUNTIME_PM_ON_AC", value: "auto" }
         - { option: "SCHED_POWERSAVE_ON_AC", value: "1" }
-        - { option: "SOUND_POWER_SAVE_ON_AC", value: "1" }
+        - { option: "SOUND_POWER_SAVE_ON_AC", value: "60" }
         - { option: "USB_AUTOSUSPEND_DISABLE_ON_SHUTDOWN", value: "1" }
+      notify: restart tlp
 
     - name: services
       ignore_errors: yes
@@ -196,8 +197,7 @@
         path: /etc/profile.d/alias.local.sh
         block: |
           [ -x "$(command -v dircolors)" ] && eval "$(dircolors)"
-          export LS_OPTIONS='--color=auto -hpv'
-          alias ls='ls ${LS_OPTIONS}'
+          alias ls='ls -hpv --color=auto'
           alias ll='ls -l'
           alias la='ls -A'
           alias lla='ls -lA'
@@ -290,6 +290,11 @@
     - name: restart systemd-journald
       service:
         name: systemd-journald
+        state: restarted
+
+    - name: restart tlp
+      service:
+        name: tlp
         state: restarted
 
     - name: grub-mkconfig
