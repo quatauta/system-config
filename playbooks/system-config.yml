@@ -130,7 +130,7 @@
       loop:
         - { repository: "archzfs", url: "https://archzfs.com/$repo/$arch" }
         - { repository: "quatauta", url: "file:///home/daniel/Documents/workspace/aur-$repo/repo" }
-        - { repository: 'zfs-linux', url: 'http://kernels.archzfs.com/$repo/' }
+        - { repository: 'zfs-linux', url: 'http://kernels.archzfs.com/$repo' }
 
     - name: TLP power savings
       ini_file:
