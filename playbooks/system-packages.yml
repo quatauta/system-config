@@ -137,6 +137,7 @@
           - reflector
           - reiserfsprogs
           - rhash
+          - rhash
           - rsync
           - run-parts
           - screen
