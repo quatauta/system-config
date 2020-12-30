@@ -26,9 +26,11 @@
           - kernel-modules-hook
           - latencytop
           - mmv
+          - neovim-gtk-git
           - networkmanager-wireguard
           - nginx-unitd
           - nginx-unit-python
+          - nodejs-neovim
           - pacman-auto-update
           - pacman-systemd-inhibit
           - pacman-updatedb-hook
@@ -36,6 +38,7 @@
           - pnmixer
           - rcm
           - redshift-wayland-git
+          - ruby-neovim
           - ruby-pry
           - safecopy
           - sanoid
