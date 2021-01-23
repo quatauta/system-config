@@ -51,16 +51,6 @@
           done
       notify: grub-mkconfig
 
-    - name: grub apparmor enabled
-      ini_file:
-        path: /etc/default/grub.d/apparmor.cfg
-        mode: 0644
-        section: ''
-        option: GRUB_CMDLINE_LINUX_DEFAULT
-        value: '"${GRUB_CMDLINE_LINUX_DEFAULT} apparmor=1 lsm=lockdown,yama,apparmor"'
-        no_extra_spaces: yes
-      notify: grub-mkconfig
-
     - name: faillock deny 12 failed logins
       ini_file:
         path: /etc/security/faillock.conf
@@ -154,7 +144,6 @@
         state: "{{ item.state }}"
         enabled: "{{ item.enabled }}"
       loop:
-        - { state: started, enabled: yes, name: "apparmor" }
         - { state: stopped, enabled: no, name: "atop" }
         - { state: stopped, enabled: no, name: "atopacct" }
         - { state: started, enabled: yes, name: "bluetooth" }

@@ -13,7 +13,6 @@
           - acl
           - acpi
           - alsa-utils
-          - apparmor
           - archlinux-keyring
           - atop
           - attr
