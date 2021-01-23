@@ -157,7 +157,7 @@
         - { state: started, enabled: yes, name: "sshd" }
         - { state: started, enabled: yes, name: "systemd-resolved" }
         - { state: started, enabled: yes, name: "systemd-timesyncd" }
-        - { state: started, enabled: yes, name: "tlp" }
+        - { state: stopped, enabled: no, name: "tlp" }
         - { state: started, enabled: yes, name: "updatedb.timer" }
 
     - name: tmpfile for minimum hibernate image size
