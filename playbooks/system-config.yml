@@ -263,10 +263,46 @@
         - { type: "timer", section: "Timer", option: "OnCalendar", value: "Weekly" }
         - { type: "timer", section: "Timer", option: "Persistent", value: "true" }
         - { type: "timer", section: "Install", option: "WantedBy", value: "timers.target" }
+      notify: reload systemd daemon
 
     - name: docker system prune timer enabled
       service:
         name: docker-system-prune.timer
+        state: started
+        enabled: yes
+
+    - name: zfs zpool trim all script
+      copy:
+        src: zfs-zpool-trim-all.sh
+        dest: /usr/local/bin/zfs-zpool-trim-all.sh
+        group: root
+        mode: 0755
+        owner: root
+
+    - name: zfs zpool trim all service and timer
+      ini_file:
+        path: "/etc/systemd/system/zfs-zpool-trim-all.{{ item.type }}"
+        section: "{{ item.section }}"
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+        create: yes
+        group: root
+        no_extra_spaces: yes
+        mode: 0644
+        owner: root
+      loop:
+        - { type: "service", section: "Unit", option: "Description", value: "Initiate immediate TRIM operations for all ZFS storage pools" }
+        - { type: "service", section: "Service", option: "Type", value: "oneshot" }
+        - { type: "service", section: "Service", option: "ExecStart", value: "/usr/local/bin/zfs-zpool-trim-all.sh" }
+        - { type: "timer", section: "Unit", option: "Description", value: "zfs zpool trim all timer" }
+        - { type: "timer", section: "Timer", option: "OnCalendar", value: "Weekly" }
+        - { type: "timer", section: "Timer", option: "Persistent", value: "true" }
+        - { type: "timer", section: "Install", option: "WantedBy", value: "timers.target" }
+      notify: reload systemd daemon
+
+    - name: zfs zpool trim all timer enabled
+      service:
+        name: zfs-zpool-trim-all.timer
         state: started
         enabled: yes
 
