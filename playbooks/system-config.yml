@@ -216,8 +216,8 @@
         state: "{{ item.state }}"
       loop:
         - { key: "/org/gnome/settings-daemon/plugins/color/night-light-enabled", value: "true", state: present }
-        - { key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout", value: 60, state: present }
-        - { key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout", value: 60, state: present }
+        - { key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout", value: 180, state: present }
+        - { key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout", value: 180, state: present }
 
     - name: reflector settings for pacman mirrorlist
       blockinfile:
