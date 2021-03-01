@@ -94,9 +94,9 @@
         owner: root
       loop:
         - { section: "Unit", option: "Description", value: "Automatic Update once per day" }
-        - { section: "Timer", option: "OnBootSec", value: "" }
-        - { section: "Timer", option: "OnUnitActiveSec", value: "" }
-        - { section: "Timer", option: "OnUnitInactiveSec", value: "" }
+        - { section: "Timer", option: "OnBootSec", value: " " }
+        - { section: "Timer", option: "OnUnitActiveSec", value: " " }
+        - { section: "Timer", option: "OnUnitInactiveSec", value: " " }
         - { section: "Timer", option: "OnCalendar", value: "daily" }
         - { section: "Timer", option: "Persistent", value: "true" }
       notify: reload systemd daemon
