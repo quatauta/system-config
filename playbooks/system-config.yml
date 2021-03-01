@@ -173,13 +173,12 @@
         owner: root
 
     - name: mkinitcpio hooks
-      ini_file:
+      lineinfile:
         path: /etc/mkinitcpio.conf
         mode: 0644
-        section: ""
-        option: "HOOKS"
-        value: "(base udev autodetect modconf block keyboard zfs filesystems resume fsck)"
-        no_extra_spaces: yes
+        line: "HOOKS=(base udev autodetect modconf block keyboard zfs filesystems resume fsck)"
+        regexp: "^HOOKS="
+        state: present
       notify: mkinitcpio
 
     - name: shell aliases
