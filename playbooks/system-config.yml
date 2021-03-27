@@ -147,7 +147,7 @@
       loop:
         - { state: stopped, enabled: no, name: "atop" }
         - { state: stopped, enabled: no, name: "atopacct" }
-        - { state: started, enabled: yes, name: "bluetooth" }
+        - { state: stopped, enabled: no, name: "bluetooth" }
         - { state: started, enabled: yes, name: "fstrim.timer" }
         - { state: started, enabled: yes, name: "gpm" }
         - { state: started, enabled: yes, name: "NetworkManager" }
