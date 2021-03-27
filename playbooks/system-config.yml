@@ -306,6 +306,41 @@
         state: started
         enabled: yes
 
+    - name: pikaur scm pkg rebuild script
+      copy:
+        src: pikaur-scm-pkg-rebuild.sh
+        dest: /usr/local/bin/pikaur-scm-pkg-rebuild.sh
+        group: root
+        mode: 0755
+        owner: root
+
+    - name: pikaur scm pkg rebuild service and timer
+      ini_file:
+        path: "/etc/systemd/system/pikaur-scm-pkg-rebuild.{{ item.type }}"
+        section: "{{ item.section }}"
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+        create: yes
+        group: root
+        no_extra_spaces: yes
+        mode: 0644
+        owner: root
+      loop:
+        - { type: "service", section: "Unit", option: "Description", value: "Rebuild pikaur scm packages" }
+        - { type: "service", section: "Service", option: "Type", value: "oneshot" }
+        - { type: "service", section: "Service", option: "ExecStart", value: "/usr/local/bin/pikaur-scm-pkg-rebuild.sh" }
+        - { type: "timer", section: "Unit", option: "Description", value: "Rebuild pikaur scm packages timer" }
+        - { type: "timer", section: "Timer", option: "OnCalendar", value: "Monthly" }
+        - { type: "timer", section: "Timer", option: "Persistent", value: "true" }
+        - { type: "timer", section: "Install", option: "WantedBy", value: "timers.target" }
+      notify: reload systemd daemon
+
+    - name: pikaur scm pkg rebuild timer enabled
+      service:
+        name: pikaur-scm-pkg-rebuild.timer
+        state: started
+        enabled: yes
+
   handlers:
     - name: restart systemd-logind
       service:
