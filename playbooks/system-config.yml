@@ -18,7 +18,7 @@
       notify: restart systemd-logind
       loop:
         - { option: "IdleAction", value: "suspend-than-hibernate" }
-        - { option: "IdleActionSec", value: "10min" }
+        - { option: "IdleActionSec", value: "30min" }
 
     - name: systemd journal max disk usage
       ini_file:
