@@ -341,6 +341,22 @@
         state: started
         enabled: yes
 
+    - name: geoclue allow redshift
+      ini_file:
+        path: "/etc/geoclue/geoclue.conf"
+        section: "{{ item.section }}"
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+        create: no
+        group: root
+        no_extra_spaces: yes
+        mode: 0644
+        owner: root
+      loop:
+        - { section: "redshift", option: "allowed", value: "true" }
+        - { section: "redshift", option: "system", value: "true" }
+        - { section: "redshift", option: "users", value: "" }
+
   handlers:
     - name: restart systemd-logind
       service:
